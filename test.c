@@ -1,7 +1,7 @@
-void SMTC_SetDrawingSize(char* SMTC_DWGSize)
+void SMTC_SetDrawingSize(char SMTC_DWGSize)
 {
-        int DBPropStatus=0;
-        axlDBCreatePropDictEntry("SMTC_DWG_SIZE","STRING",true);
+        int DBPropStatus = null;
+        axlDBCreatePropDictEntry("SMTC_DWG_SIZE","STRING", true);
         DBPropStatus = axlDBAddProp(axlDBGetDesign());
 
         if(DBPropStatus != 0) {
