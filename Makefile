@@ -1,6 +1,7 @@
 
 lex :
-	- rm lex.yy.c skill.tab.c
-	bison skill.y
+	- rm lex.yy.c skill.tah.h y.tab.c y.tab.h skill.tab.c
+	bison -d skill.y
 	flex skill.l
-	g++ skill.tab.c lex.yy.c -o skillp -ll -ly
+	g++ skill.tab.c lex.yy.c main.cpp -o skillp -ll -ly
+	./skillp test.c

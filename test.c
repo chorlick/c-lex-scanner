@@ -1,14 +1,14 @@
-void smtc_setdrawingsize(char* smtc_dwgsize)
+void smtc_setdrawingsize(char* SMTC_DWGSize)
 {
-        int dbpropstatus=0;
-        axldbcreatepropdictentry("SMTC_DWG_SIZE","STRING",true);
-        dbpropstatus = axldbaddprop(axldbgetdesign());
+        int DBPropStatus=0;
+        axlDBCreatePropDictEntry("SMTC_DWG_SIZE","STRING",true);
+        DBPropStatus = axlDBAddProp(axlDBGetDesign());
 
-        if(dbpropstatus != 0) {
-                axlmsgput("Samtec Drawing Size Property was Set...... %s",smtc_dwgsize);
+        if(DBPropStatus != 0) {
+                axlMsgPut("Samtec Drawing Size Property was Set...... %s",SMTC_DWGSize);
         }
 
-        if(dbpropstatus == 1) {
-                axlmsgput("!!!!! UNABLE TO SET SAMTEC DRAWING SIZE PROPERTY !!!!!");
+        if(DBPropStatus == 1) {
+                axlMsgPut("!!!!! UNABLE TO SET SAMTEC DRAWING SIZE PROPERTY !!!!!");
         }
 }

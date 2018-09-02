@@ -1,13 +1,12 @@
 %{
-#include <stdio.h>
-#include <iostream>
-using namespace std;
-// Declare stuff from Flex that Bison needs to know about:
-extern int yylex();
-extern int yyparse();
-extern FILE *yyin;
-
-void yyerror(const char *s);
+  #include <stdio.h>
+  void yyerror(const char *s);
+  extern int yylex();
+  extern int yyparse();
+  extern FILE *yyin;
+  extern FILE *yyin;
+  extern FILE *yyout;
+  extern char *yytext;
 %}
 
 
@@ -30,7 +29,6 @@ void yyerror(const char *s);
 
 %start translation_unit
 %%
-
 primary_expression
 	: IDENTIFIER
 	| constant
@@ -240,7 +238,7 @@ storage_class_specifier
 	;
 
 type_specifier
-	: VOID {printf("GOD ONE\n");}
+	: VOID
 	| CHAR
 	| SHORT
 	| INT
@@ -538,32 +536,3 @@ declaration_list
 	;
 
 %%
-#include <stdio.h>
-#include <string.h>
-extern FILE *yyin;
-extern FILE *yyout;
-extern char *yytext;
-
-void yyerror(const char *s) {
-	printf("EEK, parse error!  Message: %s\n");
-	// might as well halt now:
-	exit(-1);
-}
-
-int main(int argc, char* argv[]) {
-	// Open a file handle to a particular file:
-	FILE *myfile = fopen("test.c", "r");
-	// Make sure it is valid:
-	if (!myfile) {
-		printf("I can't open a.snazzle.file!\n");
-		return -1;
-	}
-	// Set Flex to read from it instead of defaulting to STDIN:
-	yyin = myfile;
-  yyout = fopen("/dev/null", "w");
-	// Parse through the input:
-	while(yylex()){
-
-  }
-
-}
