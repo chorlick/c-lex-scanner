@@ -28,7 +28,7 @@ using namespace std;
 
 struct function {
         string name;
-        vector<string> arguments;
+        vector<string> * arguments;
         bool skill;
 };
 
@@ -61,12 +61,12 @@ void deleteSymbolTable() {
         }
 }
 
-void findFunctionArguments(vector<symbol *>::iterator it ) {
+void findFunctionArguments(vector<symbol *>::iterator it, function * f ) {
         symbol * sPrev = NULL;
         symbol * sNext = NULL;
         symbol * sCur = NULL;
-        function * f = *functions.end();
-        cout << "Arguments for "<< f->name << endl;
+        //cout << "Arguments for "<< f->name << endl;
+
         ++it;
         for (it; it != symbols.end(); ++it) {
                 sPrev = *prev(it, 1);
@@ -75,23 +75,23 @@ void findFunctionArguments(vector<symbol *>::iterator it ) {
 
 
                 if(sCur->type == ')') {
-                        cout << "End arguments" << endl;
+                        //cout << "End arguments" << endl;
                         break;
                 }
 
                 if(sCur->type == STRING_LITERAL) {
-                        cout << "Function Argument " << sCur->name << endl;
+                        //cout << "Function Argument " << sCur->name << endl;
                         f->arguments->push_back(sCur->name);
                 }
 
                 if(sCur->type == TRUE) {
-                        cout << "Function Argument " << sCur->name << endl;
+                        //cout << "Function Argument " << sCur->name << endl;
                         f->arguments->push_back(sCur->name);
                 }
 
                 if(sCur->type == IDENTIFIER) {
-                        cout << "Function Argument " << sCur->name << endl;
-                        //f->arguments->push_back(new string(sCur->name));
+                        //cout << "Function Argument " << sCur->name << endl;
+                        f->arguments->push_back(sCur->name);
                 }
         }
 }
@@ -108,20 +108,23 @@ void findFunctions() {
                 sNext = *next(it,1);
 
                 if(sCur->type == IDENTIFIER) {
+                        function * t = new function;
+                        t->name = sCur->name;
+                        t->arguments = new vector<string>;
                         if( (sNext->type == '(') && (sPrev->type == VOID)) {
-                                cout << "New Skill Proc " << sCur->name << endl;
-                                function * t = new function();
-                                t->name = sCur->name;
-                                t->skill = false;
-                                t->arguments.push_back("asdf");
+                                //cout << "New Skill Proc " << sCur->name << endl;
+                                t->skill = true;
+                                findFunctionArguments(it, t);
                                 functions.push_back(t);
-                                findFunctionArguments(it);
                                 continue;
                         }
 
                         if(sNext->type == '(') {
-                                cout << "Function Call (Not Skil Proc) " << sCur->name << endl;
-                                findFunctionArguments(it);
+                                //cout << "Function Call (Not Skil Proc) " << sCur->name << endl;
+                                t->skill = false;
+                                findFunctionArguments(it, t);
+                                functions.push_back(t);
+
                         }
                 }
         }
@@ -145,7 +148,7 @@ void findNewSkillProcedures() {
                 if(sCur->type == IDENTIFIER) {
                         if( (sNext->type == '(') && (sPrev->type == VOID)) {
                                 cout << "New Skill Proc " << sCur->name << endl;
-                                findFunctionArguments(it);
+                                //findFunctionArguments(it);
                         }
                 }
         }
@@ -153,7 +156,6 @@ void findNewSkillProcedures() {
 
 
 void processSymbolTable() {
-        //findNewSkillProcedures();
         findFunctions();
 }
 
@@ -165,6 +167,37 @@ void printSymbolTable() {
         }
 }
 
+void printFunctions() {
+        for (std::vector<function *>::iterator it = functions.begin(); it != functions.end(); ++it) {
+                function * t = *it;
+                cout << "Name : " << t->name << " " << " skill : " << t->skill << " ";
+                cout << "Arguments : " << endl;
+                for (std::vector<string>::iterator at = t->arguments->begin(); at != t->arguments->end(); ++at) {
+                        cout << *at << endl;
+                }
+        }
+}
+
+void deleteFunctions() {
+        for (std::vector<function *>::iterator it = functions.begin(); it != functions.end(); ++it) {
+                function * t = *it;
+                delete t->arguments;
+                delete t;
+        }
+}
+
+void writeSkillFile() {
+        for (std::vector<function *>::iterator it = functions.begin(); it != functions.end(); ++it) {
+                function * t = *it;
+                if(t->skill == true) {
+                        cout << "procedure ( " << t->name << "(";
+                        for (std::vector<string>::iterator at = t->arguments->begin(); at != t->arguments->end(); ++at) {
+                                cout << *at << " ";
+                        }
+                        cout << ")" << endl << ")" << endl <<endl;
+                }
+        }
+}
 
 int main(int argc, char* argv[]) {
         // Open a file handle to a particular file:
@@ -233,8 +266,13 @@ int main(int argc, char* argv[]) {
 
         }
         cout << "Parsing Complete" << endl;
-        printSymbolTable();
+        //printSymbolTable();
         processSymbolTable();
+        //printFunctions();
+
+        writeSkillFile();
+
         deleteSymbolTable();
+        deleteFunctions();
         return 0;
 }
