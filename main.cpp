@@ -26,15 +26,10 @@ extern int yylval;
 
 using namespace std;
 
-struct functionCall {
-  string name;
-
-
-};
-
-struct skillProc {
-
-
+struct function {
+        string name;
+        vector<string> arguments;
+        bool skill;
 };
 
 struct symbol {
@@ -44,6 +39,8 @@ struct symbol {
 
 stack<int> blocks;
 vector<symbol *> symbols;
+vector <function *> functions;
+
 
 void yyerror(const char *s) {
         printf("Parse error!  Message: %s\n", s);
@@ -64,8 +61,42 @@ void deleteSymbolTable() {
         }
 }
 
+void findFunctionArguments(vector<symbol *>::iterator it ) {
+        symbol * sPrev = NULL;
+        symbol * sNext = NULL;
+        symbol * sCur = NULL;
+        function * f = *functions.end();
+        cout << "Arguments for "<< f->name << endl;
+        ++it;
+        for (it; it != symbols.end(); ++it) {
+                sPrev = *prev(it, 1);
+                sCur = *(it);
+                sNext = *next(it,1);
+
+
+                if(sCur->type == ')') {
+                        cout << "End arguments" << endl;
+                        break;
+                }
+
+                if(sCur->type == STRING_LITERAL) {
+                        cout << "Function Argument " << sCur->name << endl;
+                        f->arguments->push_back(sCur->name);
+                }
+
+                if(sCur->type == TRUE) {
+                        cout << "Function Argument " << sCur->name << endl;
+                        f->arguments->push_back(sCur->name);
+                }
+
+                if(sCur->type == IDENTIFIER) {
+                        cout << "Function Argument " << sCur->name << endl;
+                        //f->arguments->push_back(new string(sCur->name));
+                }
+        }
+}
+
 void findFunctions() {
-        list<symbol *> functions;
         vector<symbol *>::iterator it = symbols.begin();
         symbol * sPrev = NULL;
         symbol * sNext = NULL;
@@ -77,12 +108,26 @@ void findFunctions() {
                 sNext = *next(it,1);
 
                 if(sCur->type == IDENTIFIER) {
+                        if( (sNext->type == '(') && (sPrev->type == VOID)) {
+                                cout << "New Skill Proc " << sCur->name << endl;
+                                function * t = new function();
+                                t->name = sCur->name;
+                                t->skill = false;
+                                t->arguments.push_back("asdf");
+                                functions.push_back(t);
+                                findFunctionArguments(it);
+                                continue;
+                        }
+
                         if(sNext->type == '(') {
-                          cout << "Function Call (Not Skil Proc) " << sCur->name << endl;
+                                cout << "Function Call (Not Skil Proc) " << sCur->name << endl;
+                                findFunctionArguments(it);
                         }
                 }
         }
 }
+
+
 
 
 void findNewSkillProcedures() {
@@ -99,7 +144,8 @@ void findNewSkillProcedures() {
 
                 if(sCur->type == IDENTIFIER) {
                         if( (sNext->type == '(') && (sPrev->type == VOID)) {
-                          cout << "New Skill Proc " << sCur->name << endl;
+                                cout << "New Skill Proc " << sCur->name << endl;
+                                findFunctionArguments(it);
                         }
                 }
         }
@@ -107,7 +153,7 @@ void findNewSkillProcedures() {
 
 
 void processSymbolTable() {
-        findNewSkillProcedures();
+        //findNewSkillProcedures();
         findFunctions();
 }
 
@@ -150,7 +196,6 @@ int main(int argc, char* argv[]) {
                 case IDENTIFIER:
                         newSymbol(IDENTIFIER, yytext);
                         break;
-
                 case '{':
                         newSymbol('{', yytext);
                         break;
@@ -174,6 +219,12 @@ int main(int argc, char* argv[]) {
                         break;
                 case I_CONSTANT:
                         newSymbol(I_CONSTANT, yytext);
+                        break;
+                case STRING_LITERAL:
+                        newSymbol(STRING_LITERAL, yytext);
+                        break;
+                case TRUE:
+                        newSymbol(TRUE, yytext);
                         break;
                 default:
                         cout << yytext<< " " << yylval<<  endl;

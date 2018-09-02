@@ -41,6 +41,8 @@ static int check_type(void);
 "/*"                                    { comment(); }
 "//".*                                    { /* consume //-comment */ }
 
+"true"          { yylval = TRUE; return(TRUE); }
+"false"          { yylval = TRUE; return(FALSE); }
 "auto"					{ yylval = AUTO; return(AUTO); }
 "break"					{ yylval = BREAK; return(BREAK); }
 "case"					{ yylval = CASE; return(CASE); }
@@ -103,7 +105,7 @@ static int check_type(void);
 {HP}{H}*"."{H}+{P}{FS}?			{ return F_CONSTANT; }
 {HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
 
-({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ yylval = STRING_LITERAL; return STRING_LITERAL; }
 
 "..."					{ return ELLIPSIS; }
 ">>="					{ return RIGHT_ASSIGN; }
@@ -130,7 +132,7 @@ static int check_type(void);
 ";"					{ return ';'; }
 ("{"|"<%")				{ yylval = '{'; return '{'; }
 ("}"|"%>")				{ yylval = '}'; return '}'; }
-","					{ return ','; }
+","					{ yylval = COMMA; return ','; }
 ":"					{ return ':'; }
 "="					{ yylval = '='; return '='; }
 "("					{yylval = '('; return '('; }
