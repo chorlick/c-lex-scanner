@@ -1293,313 +1293,313 @@ YY_RULE_SETUP
 case 47:
 YY_RULE_SETUP
 #line 88 "skill.l"
-{ return FUNC_NAME; }
+{ yylval = FUNC_NAME; return FUNC_NAME; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 90 "skill.l"
+#line 92 "skill.l"
 { yylval = IDENTIFIER; return check_type(); }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 92 "skill.l"
+#line 94 "skill.l"
 { yylval = I_CONSTANT; return I_CONSTANT; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 93 "skill.l"
+#line 95 "skill.l"
 {yylval = I_CONSTANT; return I_CONSTANT; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 94 "skill.l"
+#line 96 "skill.l"
 {yylval = I_CONSTANT; return I_CONSTANT; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 95 "skill.l"
+#line 97 "skill.l"
 { yylval = I_CONSTANT; return I_CONSTANT; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 97 "skill.l"
+#line 99 "skill.l"
 { yylval = F_CONSTANT; return F_CONSTANT; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 98 "skill.l"
+#line 100 "skill.l"
 { yylval = F_CONSTANT; return F_CONSTANT; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 99 "skill.l"
+#line 101 "skill.l"
 { yylval = F_CONSTANT; return F_CONSTANT; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 100 "skill.l"
+#line 102 "skill.l"
 { return F_CONSTANT; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 101 "skill.l"
+#line 103 "skill.l"
 { return F_CONSTANT; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 102 "skill.l"
+#line 104 "skill.l"
 { return F_CONSTANT; }
 	YY_BREAK
 case 59:
 /* rule 59 can match eol */
 YY_RULE_SETUP
-#line 104 "skill.l"
+#line 106 "skill.l"
 { return STRING_LITERAL; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 106 "skill.l"
+#line 108 "skill.l"
 { return ELLIPSIS; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 107 "skill.l"
+#line 109 "skill.l"
 { return RIGHT_ASSIGN; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 108 "skill.l"
+#line 110 "skill.l"
 { return LEFT_ASSIGN; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 109 "skill.l"
+#line 111 "skill.l"
 { return ADD_ASSIGN; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 110 "skill.l"
+#line 112 "skill.l"
 { return SUB_ASSIGN; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 111 "skill.l"
+#line 113 "skill.l"
 { return MUL_ASSIGN; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 112 "skill.l"
+#line 114 "skill.l"
 { return DIV_ASSIGN; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 113 "skill.l"
+#line 115 "skill.l"
 { return MOD_ASSIGN; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 114 "skill.l"
+#line 116 "skill.l"
 { return AND_ASSIGN; }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 115 "skill.l"
+#line 117 "skill.l"
 { return XOR_ASSIGN; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 116 "skill.l"
+#line 118 "skill.l"
 { return OR_ASSIGN; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 117 "skill.l"
+#line 119 "skill.l"
 { return RIGHT_OP; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 118 "skill.l"
+#line 120 "skill.l"
 { return LEFT_OP; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 119 "skill.l"
+#line 121 "skill.l"
 { return INC_OP; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 120 "skill.l"
+#line 122 "skill.l"
 { return DEC_OP; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 121 "skill.l"
+#line 123 "skill.l"
 { return PTR_OP; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 122 "skill.l"
+#line 124 "skill.l"
 { return AND_OP; }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
-#line 123 "skill.l"
+#line 125 "skill.l"
 { return OR_OP; }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
-#line 124 "skill.l"
+#line 126 "skill.l"
 { return LE_OP; }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
-#line 125 "skill.l"
+#line 127 "skill.l"
 { return GE_OP; }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
-#line 126 "skill.l"
+#line 128 "skill.l"
 { yylval = EQ_OP; return EQ_OP; }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
-#line 127 "skill.l"
+#line 129 "skill.l"
 { yylval = NE_OP; return NE_OP; }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
-#line 128 "skill.l"
+#line 130 "skill.l"
 { return ';'; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
-#line 129 "skill.l"
+#line 131 "skill.l"
 { yylval = '{'; return '{'; }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
-#line 130 "skill.l"
+#line 132 "skill.l"
 { yylval = '}'; return '}'; }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
-#line 131 "skill.l"
+#line 133 "skill.l"
 { return ','; }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
-#line 132 "skill.l"
+#line 134 "skill.l"
 { return ':'; }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
-#line 133 "skill.l"
+#line 135 "skill.l"
 { yylval = '='; return '='; }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
-#line 134 "skill.l"
+#line 136 "skill.l"
 {yylval = '('; return '('; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
-#line 135 "skill.l"
+#line 137 "skill.l"
 {yylval = ')'; return ')'; }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
-#line 136 "skill.l"
+#line 138 "skill.l"
 { return '['; }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
-#line 137 "skill.l"
+#line 139 "skill.l"
 { return ']'; }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
-#line 138 "skill.l"
+#line 140 "skill.l"
 { return '.'; }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
-#line 139 "skill.l"
+#line 141 "skill.l"
 { return '&'; }
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
-#line 140 "skill.l"
+#line 142 "skill.l"
 { return '!'; }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
-#line 141 "skill.l"
+#line 143 "skill.l"
 { return '~'; }
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
-#line 142 "skill.l"
+#line 144 "skill.l"
 { return '-'; }
 	YY_BREAK
 case 97:
 YY_RULE_SETUP
-#line 143 "skill.l"
+#line 145 "skill.l"
 { yylval = atoi(yytext); return '+'; }
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
-#line 144 "skill.l"
+#line 146 "skill.l"
 { return '*'; }
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
-#line 145 "skill.l"
+#line 147 "skill.l"
 { return '/'; }
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
-#line 146 "skill.l"
+#line 148 "skill.l"
 { return '%'; }
 	YY_BREAK
 case 101:
 YY_RULE_SETUP
-#line 147 "skill.l"
+#line 149 "skill.l"
 { return '<'; }
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
-#line 148 "skill.l"
+#line 150 "skill.l"
 { return '>'; }
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
-#line 149 "skill.l"
+#line 151 "skill.l"
 { return '^'; }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
-#line 150 "skill.l"
+#line 152 "skill.l"
 { return '|'; }
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
-#line 151 "skill.l"
+#line 153 "skill.l"
 { return '?'; }
 	YY_BREAK
 case 106:
 /* rule 106 can match eol */
 YY_RULE_SETUP
-#line 153 "skill.l"
+#line 155 "skill.l"
 { /* whitespace separates tokens */ }
 	YY_BREAK
 case 107:
 YY_RULE_SETUP
-#line 154 "skill.l"
+#line 156 "skill.l"
 { /* discard bad characters */ }
 	YY_BREAK
 case 108:
 YY_RULE_SETUP
-#line 156 "skill.l"
+#line 157 "skill.l"
 YY_FATAL_ERROR( "flex scanner jammed" );
 	YY_BREAK
 #line 1606 "lex.yy.c"
@@ -2603,7 +2603,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 156 "skill.l"
+#line 157 "skill.l"
 
 
 

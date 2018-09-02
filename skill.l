@@ -85,7 +85,9 @@ static int check_type(void);
 "_Noreturn"                             { return NORETURN; }
 "_Static_assert"                        { return STATIC_ASSERT; }
 "_Thread_local"                         { return THREAD_LOCAL; }
-"__func__"                              { return FUNC_NAME; }
+"__func__"                              { yylval = FUNC_NAME; return FUNC_NAME; }
+
+
 
 {L}{A}*					{ yylval = IDENTIFIER; return check_type(); }
 
@@ -152,7 +154,6 @@ static int check_type(void);
 
 {WS}+					{ /* whitespace separates tokens */ }
 .					{ /* discard bad characters */ }
-
 %%
 
 int yywrap(void)        /* called at end of input */

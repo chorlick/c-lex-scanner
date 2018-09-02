@@ -117,7 +117,8 @@ extern int yydebug;
     GENERIC = 327,
     NORETURN = 328,
     STATIC_ASSERT = 329,
-    THREAD_LOCAL = 330
+    THREAD_LOCAL = 330,
+    FUNCTION_DECLERATION = 331
   };
 #endif
 

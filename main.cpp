@@ -17,51 +17,59 @@ extern FILE *yyin;
 extern FILE *yyin;
 extern FILE *yyout;
 extern char *yytext;
+
 extern int yylval;
 
 using namespace std;
 
+
+
 struct symbol {
-        int type;
+        string type;
         string name;
         vector<symbol> arguments;
 };
 
-vector<symbol *> symbol_table;
+struct scope {
+        vector<symbol *> symbols;
+};
+
+vector<scope *> scopes;
+vector<int> symbol_stack;
 
 void yyerror(const char *s) {
         printf("Parse error!  Message: %s\n", s);
-        // might as well halt now:
         exit(-1);
 }
 
-void newSymbol() {
-  symbol * t = new symbol;
-  t->name = yytext;
-  symbol_table.push_back(t);
+void newScope() {
+        scopes.push_back(new scope);
 }
 
-void handleVoid() {
-  newSymbol();
+void newSymbol() {
+
 }
 
 void deleteSymbolTable() {
-  for (std::vector<symbol *>::iterator it = symbol_table.begin() ; it != symbol_table.end(); ++it) {
-    delete *it;
-  }
+
+}
+
+
+void printSymbols(symbol * s) {
+
 }
 
 void printSymbolTable() {
-  for (std::vector<symbol *>::iterator it = symbol_table.begin() ; it != symbol_table.end(); ++it) {
-    cout << "Name " << *it->name;
-  }
+        int i = 0;
+        for (std::vector<scope *>::iterator it = scopes.begin(); it != scopes.end(); ++it) {
+                scope * t = *it;
+                cout << "Scope " << i++ << endl;
+        }
 }
 
 int main(int argc, char* argv[]) {
         // Open a file handle to a particular file:
         FILE *myfile = fopen(argv[1], "r");
-        // Make sure it is valid:
-
         if (!myfile) {
                 printf("File not found %s\n", argv[1]);
                 return -1;
@@ -72,20 +80,28 @@ int main(int argc, char* argv[]) {
         yyin = myfile;
         yyout = fopen("/dev/null", "w");
         // Parse through the input:
+        newScope();
         while(yylex()) {
                 switch(yylval) {
                 case VOID:
+                        break;
+                case IDENTIFIER:
+                        break;
 
-                        handleVoid();
+                case '(':
+
+                        break;
+
+                case ')':
                         break;
                 }
 
-                case IDENTIFIER :
-                  newSymbol();
-                break;
+
+
         }
 
-        cout << "Parsing Complete" << endl;
 
+        cout << "Parsing Complete" << endl;
+        printSymbolTable();
         return 0;
 }
