@@ -7,6 +7,8 @@
 #include <iostream>
 #include <stack>
 #include <list>
+#include <iterator>
+#include <algorithm>
 
 #include "skill.tab.h"
 
@@ -24,7 +26,16 @@ extern int yylval;
 
 using namespace std;
 
+struct functionCall {
+  string name;
 
+
+};
+
+struct skillProc {
+
+
+};
 
 struct symbol {
         int type;
@@ -56,32 +67,47 @@ void deleteSymbolTable() {
 void findFunctions() {
         list<symbol *> functions;
         vector<symbol *>::iterator it = symbols.begin();
-        list<symbol *>::iterator pit;
+        symbol * sPrev = NULL;
+        symbol * sNext = NULL;
+        symbol * sCur = NULL;
 
         for (it; it != symbols.end(); ++it) {
-                symbol * t = *it;
-                if(t->type == IDENTIFIER) {
-                        functions.push_back(t);
+                sPrev = *prev(it, 1);
+                sCur = *(it);
+                sNext = *next(it,1);
+
+                if(sCur->type == IDENTIFIER) {
+                        if(sNext->type == '(') {
+                          cout << "Function Call (Not Skil Proc) " << sCur->name << endl;
+                        }
                 }
         }
-
-        pit = functions.begin();
-        for(pit; pit != functions.end(); ++pit) {
-                symbol * t = *pit;
-
-                cout << "Possible function " << t->name << endl;
-
-        }
-
 }
 
 
 void findNewSkillProcedures() {
+        list<symbol *> functions;
+        vector<symbol *>::iterator it = symbols.begin();
+        symbol * sPrev = NULL;
+        symbol * sNext = NULL;
+        symbol * sCur = NULL;
 
+        for (it; it != symbols.end(); ++it) {
+                sPrev = *prev(it, 1);
+                sCur = *(it);
+                sNext = *next(it,1);
+
+                if(sCur->type == IDENTIFIER) {
+                        if( (sNext->type == '(') && (sPrev->type == VOID)) {
+                          cout << "New Skill Proc " << sCur->name << endl;
+                        }
+                }
+        }
 }
 
 
 void processSymbolTable() {
+        findNewSkillProcedures();
         findFunctions();
 }
 
